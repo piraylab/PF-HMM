@@ -19,7 +19,7 @@ function hmm_fit(experiment)
 %
 
     % Set default experiment if none provided.
-    if nargin < 1, experiment = 'sealion'; end
+    if nargin < 1, experiment = 'sim'; end
 
     %% Set up paths and directories
     % Determine the current folder (location of this file) and set the working directory
@@ -35,8 +35,13 @@ function hmm_fit(experiment)
 
     %% Load experimental data using the get_data function
     if strcmpi(experiment, 'sim')
-        f = load("data_sim.mat");
-        data = f.sim_data;
+        sim_file = fullfile(fdir, "data_sim.mat");
+        if exist(sim_file, 'file')
+            f = load(sim_file);
+            data = f.sim_data;
+        else
+            fprintf("\n No simulated data. Run hmm_recovery.mat first.")
+        end
     else
         [data, ~] = get_data(experiment);
     end
