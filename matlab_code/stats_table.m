@@ -1,74 +1,131 @@
 function stats_table
     
-    addpath('tools');
+    addpath('tools');  
     fdir = fullfile('..', 'mat_data');
+
+    %% ----- Main Tables: Model Comparisons -----
+    fprintf('\n=== Table: Model Comparison Table (sealion) ===\n');
+    st = other_bmc('sealion', '');
+    copy_table(st.table_struct.data, 3);
+
+    fprintf('\n=== Table: Model Comparison Table (turtle) ===\n');
+    st = other_bmc('turtle', '');
+    copy_table(st.table_struct.data, 3);
+
+    % Jang et al., 2019
+    fprintf('\n=== Table: Model Comparison Table (binB) ===\n');
+    st = other_bmc('binB', '');
+    copy_table(st.table_struct.data, 3);
+
+    % Piray et al., 2019
+    fprintf('\n=== Table: Model Comparison Table (binA) ===\n'); 
+    st = other_bmc('binA', '');
+    copy_table(st.table_struct.data, 3);
     
-    %% Supplementary Table 1 (HMM Param Recovery Correlation)
-    st = hmm_recovery(false);
-    
-    copy_table(st.table.data, 2);
-    
+    %% ---------- Supplementary Table 1 (HMM Param Recovery) ----------
+    fprintf('\n=== Supplementary Table 1: HMM Parameter Recovery Table ===\n');
+    st = hmm_rho_recovery(false);
+    copy_table(st.table.data, 3);
     % Create a table using the assembled data.
     T = array2table(st.table.data, 'RowNames', st.table.rows, 'VariableNames', st.table.columns);
-    
     % Display the table of parameter recovery in the Command Window
-    fprintf('\n=== Supplementary Table 1: HMM Parameter Recovery Correlation Table ===\n');
     disp(T);
-    
-    
-    %% Supplementary Table 2: Fitted HMM Parameters Statistics
+
+    %% ---------- Supplementary Table 2: Fitted HMM (Rho) Parameters Statistics ----------
+    fprintf('\n=== Supplementary Table 2: Fitted HMM (Rho) Parameters Statistics (sea lion) ===\n');
     % Load the fitted HMM parameters from an external file
-    f = load(fullfile(fdir, "hmm_params.mat"));
+    f = load(fullfile(fdir, 'experiment_sealion', "hmm_rho_params.mat"));
     hmm_params = f.parameters;
-    
-    % Compute quantile statistics (25%, median, and 75%) for each column of hmm_params
-    q25 = quantile(hmm_params, 0.25);
-    q50 = quantile(hmm_params, 0.50);
-    q75 = quantile(hmm_params, 0.75);
-    statsMatrix = [q25; q50; q75];
+    statsMatrix = [mean(hmm_params); std(hmm_params)];
     % Transpose it so that each row corresponds to a specific parameter.
     statsMatrix = statsMatrix';
-    
-    % Define row names: first 4 rows for Volatility (Block1 to Block4),
-    % next 4 for Stochasticity, and 4 rows for Beta.
-    rowNames = {...
-        'Volatility_{Block1}', 'Volatility_{Block2}', 'Volatility_{Block3}', 'Volatility_{Block4}', ...
-        'Stochasticity_{Block1}', 'Stochasticity_{Block2}', 'Stochasticity_{Block3}', 'Stochasticity_{Block4}'};
+    % Define row names: first 4 rows for Volatility (Block1 to Block4), next 4 for Stochasticity, and Rho.
+    rowNames = {'Volatility_{Block1}', 'Volatility_{Block2}', 'Volatility_{Block3}', 'Volatility_{Block4}', ...
+        'Stochasticity_{Block1}', 'Stochasticity_{Block2}', 'Stochasticity_{Block3}', 'Stochasticity_{Block4}', ...
+        'Rho'};
     % Define column names for the statistics.
-    colNames = {'25% quantile','Median','75% quantile'};
-    
-    copy_table(statsMatrix, 2);
-    
+    colNames = {'Mean', 'STD'};
+    copy_table(statsMatrix, 3);
     % Create a table using the assembled data.
     T = array2table(statsMatrix, 'RowNames', rowNames, 'VariableNames', colNames);
-    
     % Display the table of parameter recovery in the Command Window
-    fprintf('\n=== Supplementary Table 2: Fitted HMM Parameters Statistics Table ===\n');
     disp(T);
-    
-    %% Supplementary Table 3: Fitted HMM Regression Effect
-    fname = fullfile(fdir, 'hmm_params.mat'); 
+
+    fprintf('\n=== Supplementary Table 2: Fitted HMM (Rho) Parameters Statistics (turtle) ===\n');
+    % Load the fitted HMM parameters from an external file
+    f = load(fullfile(fdir, 'experiment_turtle', "hmm_rho_params.mat"));
+    hmm_params = f.parameters;
+    statsMatrix = [mean(hmm_params); std(hmm_params)];
+    statsMatrix = statsMatrix';
+    rowNames = {'Volatility_{Block1}', 'Volatility_{Block2}', 'Volatility_{Block3}', 'Volatility_{Block4}', ...
+        'Stochasticity_{Block1}', 'Stochasticity_{Block2}', 'Stochasticity_{Block3}', 'Stochasticity_{Block4}', ...
+        'Rho'};
+    colNames = {'Mean', 'STD'};
+    copy_table(statsMatrix, 3);
+    T = array2table(statsMatrix, 'RowNames', rowNames, 'VariableNames', colNames);
+    disp(T);
+   
+    %% ---------- Supplementary Table 3: Fitted HMM (Rho) Regression Effect (sea lion)
+    fprintf('\n=== Supplementary Table 3: Fitted HMM (Rho) Regression Effect (sea lion) ===\n');
+    fname = fullfile(fdir, 'experiment_sealion', 'hmm_rho_params.mat'); 
     f = load(fname);
     lr = f.lr;
     block_effect = f.block_effect;
     st = compute_effect(lr, block_effect);
-    
-    copy_table(st.table.data, 2);
-    
+    copy_table(st.table.data, 3);
     T = array2table(st.table.data, 'VariableNames', st.table.columns, ...
             'RowNames', st.table.rows);
     % Display the table of parameter recovery in the Command Window
-    fprintf('\n=== Supplementary Table 3: Fitted HMM Regression Effect Table ===\n');
+    disp(T);
+
+    %% ---------- Supplementary Table 4: PF-HMM (Rho) Param Recovery ----------
+    fprintf('\n=== Supplementary Table 4: PF-HMM Parameter Recovery ===\n');
+    st = pfhmm_rho_recovery(false);
+    copy_table(st.table.data, 3);
+    % Create a table using the assembled data.
+    T = array2table(st.table.data, 'RowNames', st.table.rows, 'VariableNames', st.table.columns);
+    % Display the table of parameter recovery in the Command Window
+    disp(T);
+
+    %% ---------- Supplementary Table 5: PF-HMM (Rho) Response Time Analysis (sea lion) ----------
+    fprintf('\n=== Supplementary Table 5: PF-HMM Response Time Analysis (sea lion) ===\n');
+    st = pfhmm_avg_rt_analysis('sealion', '', 'median');
+    copy_table(st.table.data, 3);
+
+    %% ---------- Supplementary Table 6: Fitted HMM (Rho) Regression Effect (turtle)
+    fprintf('\n=== Supplementary Table 6: Fitted HMM (Rho) Regression Effect (turtle) ===\n');
+    fname = fullfile(fdir, 'experiment_turtle', 'hmm_rho_params.mat'); 
+    f = load(fname);
+    lr = f.lr;
+    block_effect = f.block_effect;
+    st = compute_effect(lr, block_effect);
+    copy_table(st.table.data, 3);
+    T = array2table(st.table.data, 'VariableNames', st.table.columns, ...
+            'RowNames', st.table.rows);
+    % Display the table of parameter recovery in the Command Window
     disp(T);
     
-    %% Supplementary Table 4: Response Time Analysis
-    st = response_time_analysis;
-    copy_table(st.table.data, 2);
-    
-    T = array2table(st.table.data, 'VariableNames', st.table.columns, 'RowNames', st.table.rows);
-    fprintf('\n=== Supplementary Table 4: Response Time Analysis Table ===\n');
+    %% ---------- Supplementary Table 7: PF-HMM (Rho) Response Time Analysis (turtle) ----------
+    fprintf('\n=== Supplementary Table 7: PF-HMM Response Time Analysis (turtle) ===\n');
+    st = pfhmm_avg_rt_analysis('turtle', '', 'median');
+    copy_table(st.table.data, 3);
+
+    %% ---------- Supplementary Table 8: Model Comparison (pfhmm vs. pfhmm+rho) ----------
+    fprintf('\n=== Supplementary Table 8: Model Comparison (pfhmm vs. pfhmm+rho) ===\n');
+    st = pfhmm_rho_bmc();
+    copy_table(st.table_struct.data, 3);
+
+    %% ---------- Supplementary Table 9: Fitted PF-HMM (Rho) Parameters Statistics ----------
+    fprintf('\n=== Supplementary Table 9: Fitted PF-HMM (Rho) Parameters Statistics ===\n');
+    st = pfhmm_rho_fit('sealion', '');
+    copy_table(st.st_params.data, 3);
+    T = array2table(st.st_params.data, 'VariableNames', st.st_params.columns, 'RowNames', st.st_params.rows);
     disp(T);
-    
+    st = pfhmm_rho_fit('turtle', '');
+    copy_table(st.st_params.data, 3);
+    T = array2table(st.st_params.data, 'VariableNames', st.st_params.columns, 'RowNames', st.st_params.rows);
+    disp(T);
+
 end
 
 function str = copy_table(x, n)

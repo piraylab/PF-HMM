@@ -1,24 +1,4 @@
 function [data, metadata] = get_data(experiment)
-% GET_DATA Load experimental trial data and metadata for a given experiment.
-%
-%   [data, metadata] = get_data(experiment)
-%
-%   Inputs:
-%       experiment   - A string (or char array) identifying the experiment.
-%                      If not provided, defaults to 'sealion'.
-%
-%   Outputs:
-%       data         - A cell array where each cell contains a struct with
-%                      trial-specific data (choice, outcome, randomization order,
-%                      response time, and workerId).
-%       metadata     - A struct that contains metadata about the experiment,
-%                      including additional hidden state information.
-%
-%   The function loads a .mat file based on the experiment identifier,
-%   processes the trial data by replacing invalid choice values (-1) with NaN,
-%   and appends hidden state metadata from a separate .mat file.
-
-    % If no experiment is specified, default to 'sealion'
     if nargin < 1
         experiment = 'sealion';
     end
@@ -38,7 +18,7 @@ function [data, metadata] = get_data(experiment)
     
     % Define the folder where the .mat files are stored.
     % This example assumes the data is in the parent folder under 'mat_data'
-    fdir = fullfile('..', 'mat_data');
+    fdir = fullfile('..', 'mat_data', sprintf('experiment_%s', experiment));
     
     % Build the filename using the experiment identifier (data_experiment.mat)
     fname = fullfile(fdir, sprintf('data_%s.mat', experiment));
