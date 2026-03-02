@@ -1,0 +1,9 @@
+# MATLAB autosave
+*.asv
+
+# MATLAB workspace
+.idea/
+
+# OS files
+.DS_Store
+Thumbs.db
