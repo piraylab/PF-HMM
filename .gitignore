@@ -2,7 +2,7 @@
 *.asv
 
 # MATLAB workspace
-*.mat
+.idea/
 
 # OS files
 .DS_Store
