@@ -89,7 +89,7 @@ function stats_table
 
     %% ---------- Supplementary Table 5: PF-HMM (Rho) Response Time Analysis (sea lion) ----------
     fprintf('\n=== Supplementary Table 5: PF-HMM Response Time Analysis (sea lion) ===\n');
-    st = pfhmm_avg_rt_analysis('sealion', '', 'median');
+    st = pfhmm_rt_analysis('sealion', '', 'median');
     copy_table(st.table.data, 3);
 
     %% ---------- Supplementary Table 6: Fitted HMM (Rho) Regression Effect (turtle)
@@ -107,7 +107,7 @@ function stats_table
     
     %% ---------- Supplementary Table 7: PF-HMM (Rho) Response Time Analysis (turtle) ----------
     fprintf('\n=== Supplementary Table 7: PF-HMM Response Time Analysis (turtle) ===\n');
-    st = pfhmm_avg_rt_analysis('turtle', '', 'median');
+    st = pfhmm_rt_analysis('turtle', '', 'median');
     copy_table(st.table.data, 3);
 
     %% ---------- Supplementary Table 8: Model Comparison (pfhmm vs. pfhmm+rho) ----------

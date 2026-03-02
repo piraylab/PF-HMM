@@ -12,7 +12,7 @@ function st = other_bmc(experiment, postfix)
     fdir = fullfile('..', 'mat_data', sprintf('experiment_%s', experiment));
     
     % Alternate models
-    models = {'pearcehall_fmincon', 'binary_hgf_fmincon'}; % , 'dbd1_fmincon'
+    models = {'pearcehall_fit', 'binary_hgf_fit'}; % , 'dbd1_fmincon'
     
     % Load PFHMM LME
     fname_pf = fullfile(fdir, sprintf('pfhmm_rho_fit_%s%s.mat', experiment, postfix));

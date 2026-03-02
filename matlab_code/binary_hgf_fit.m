@@ -1,4 +1,4 @@
-function tbl = binary_hgf_fmincon(experiment, postfix)
+function tbl = binary_hgf_fit(experiment, postfix)
     if nargin < 1
         experiment = 'sealion'; 
         % 'sealion', 'turtle', 'binA', 'binB'
@@ -125,9 +125,9 @@ function tbl = binary_hgf_fmincon(experiment, postfix)
     median_params = median(parameters(~bad_traj, :), 1, 'omitnan');
     
     % ---- compute group-level dynamics using mean / median params ----  
-    fprintf('Computing mean-parameter PFHMM dynamics...\n');
+    fprintf('Computing mean-parameter binary HGF dynamics...\n');
     [~, mean_signals, ~] = model_4fit(mean_params, data{1}, experiment);
-    fprintf('Computing median-parameter PFHMM dynamics...\n');
+    fprintf('Computing median-parameter binary HGF dynamics...\n');
     [~, median_signals, ~] = model_4fit(median_params, data{1}, experiment);
 
     fprintf("Aggregate and save results.\n");

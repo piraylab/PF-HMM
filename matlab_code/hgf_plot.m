@@ -10,7 +10,7 @@ function hgf_plot
     outcome = timeseries.observations;
     state = timeseries.hidden_state;
 
-    fname = fullfile(fdir, sprintf('binary_hgf_fmincon_%s%s.mat', experiment, postfix));
+    fname = fullfile(fdir, sprintf('binary_hgf_fit_%s%s.mat', experiment, postfix));
     f = load(fname);    
 
     parameters = f.parameters;

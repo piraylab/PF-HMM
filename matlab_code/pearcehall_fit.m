@@ -1,4 +1,4 @@
-function [tbl] = pearcehall_fmincon(experiment)
+function [tbl] = pearcehall_fit(experiment)
 % PEARCEHALL_FMINCON  Fit Pearce-Hall + response_model using fmincon (tools_fit)
     if nargin < 1
         experiment = 'sealion'; 

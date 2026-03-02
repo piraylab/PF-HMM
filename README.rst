@@ -20,21 +20,20 @@ A normative theory of learning under uncertainty. The repository is structured t
     │   └── experiment_sim/
     │     └── timeseries100.mat (the generated timeseries with 100 trials used in plotting fig2a)
     ├── matlab_code/
-    │   └── binary_hgf_fmincon.m (fits the binary HGF model using binary_hgf_model.m)
+    │   └── binary_hgf_fit.m (fits the binary HGF model using binary_hgf_model.m)
     │   └── cbm/ (folder contains cbm fitting code)
     │   └── tools/ (additional tool code)
     │   └── hmm.m (defines the HMM model)
     │   └── hmm_rho_fit.m (run the script to fit HMM)
-    │   └── hmm_beta_fit.m (run the script to fit HMM with beta param)
     │   └── model_comparison.m (run the script for model comparison results between HMM and HMM-beta)
     │   └── hmm_rho_recovery.m (run the script for HMM param recovery analysis)
     │   └── other_bmc.m (run the script for model comparison results between PF-HMM, binary HGF, and PHA)
-    │   └── pearcehall_fmincon.m (fits the Pearce-Hall model using pearcehall_model.m)
+    │   └── pearcehall_fit.m (fits the Pearce-Hall model using pearcehall_model.m)
     │   └── pfhmm.m (defines the PF-HMM model)
     │   └── pfhmm_sim.m (run the script to simulate PF and HMM)
     │   └── pfhmm_rho_fit.m (run the script to fit PF-HMM with preservation)
     │   └── pfhmm_rho_recovery.m (run the script for PF-HMM param recovery analysis)
-    │   └── pfhmm_avg_rt_analysis.m (run the script for response time analysis)
+    │   └── pfhmm_rt_analysis.m (run the script for response time analysis)
     │   └── response_model.m (defines the response model)
     │   └── stats_table.m (produce tables)
     ├── python_code/
@@ -70,7 +69,7 @@ Install Python dependencies:
 If you find this work useful, please cite our paper: https://osf.io/preprints/osf/vuc5g_v1
 
 experiment_binA from:
-Piray, P., Dezfouli, A., Heskes, T., Frank, M. J., & Daw, N. D. (2019). Hierarchical Bayesian inference for concurrent model fitting and comparison for group studies. PLOS Computational Biology, 15(6), e1007043. https://doi.org/10.1371/journal.pcbi.1007043
+Piray, P., Ly, V., Roelofs, K., Cools, R., & Toni, I. (2019). Emotionally aversive cues suppress neural systems underlying optimal learning in socially anxious individuals. Journal of Neuroscience, 1394–18. https://doi.org/10.1523/JNEUROSCI.1394-18.2018
 
 experiment_binB from: 
 Jang, A. I., Nassar, M. R., Dillon, D. G., & Frank, M. J. (2019). Positive reward prediction errors during decision-making strengthen memory encoding. Nature Human Behaviour, 3(7), Article 7. https://doi.org/10.1038/s41562-019-0597-3
