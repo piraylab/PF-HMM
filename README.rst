@@ -67,10 +67,13 @@ Install Python dependencies:
 **Citation**
 
 If you find this work useful, please cite our paper:
+
 Fang, X., & Piray, P. (2026). Inferring the causes of noise from binary outcomes: A normative theory of learning under uncertainty.Psychological Review. Advance online publication. https://doi.org/10.1037/rev0000638
 
 experiment_binA from:
+
 Piray, P., Ly, V., Roelofs, K., Cools, R., & Toni, I. (2019). Emotionally aversive cues suppress neural systems underlying optimal learning in socially anxious individuals. Journal of Neuroscience, 1394–18. https://doi.org/10.1523/JNEUROSCI.1394-18.2018
 
 experiment_binB from: 
+
 Jang, A. I., Nassar, M. R., Dillon, D. G., & Frank, M. J. (2019). Positive reward prediction errors during decision-making strengthen memory encoding. Nature Human Behaviour, 3(7), Article 7. https://doi.org/10.1038/s41562-019-0597-3
